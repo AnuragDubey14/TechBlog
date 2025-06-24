@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: TechBlog
+    env: python
+    region: oregon  # Or choose your nearest region
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn wsgi:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        value: your_production_secret_key
