@@ -1,41 +1,83 @@
 <!-- base.html -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <!-- <title>{% block title %}TechBlog{% endblock %}</title> -->
-   <title>TechBlog</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>TechBlog</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+  </head>
 
-<body>
-  <nav class="navbar">
-    <a class="navbar-brand" href="{{ url_for('blog.index') }}">
-      <img src="{{ url_for('static', filename='favicon.ico') }}" class="home_icon">
-      TechBlog
-    </a>
-    <ul>
-      {% if g.user %}
+  <body>
+    <nav class="navbar">
+      <a class="navbar-brand" href="{{ url_for('blog.index') }}">
+        <img
+          src="{{ url_for('static', filename='favicon.ico') }}"
+          class="home_icon"
+        />
+        TechBlog
+      </a>
+      <ul>
+        {% if g.user %}
         <li><span>{{ g.user['username'] }}</span></li>
         <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-      {% else %}
+        {% else %}
         <li><a href="{{ url_for('auth.register') }}">Register</a></li>
         <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-      {% endif %}
-    </ul>
-  </nav>
+        {% endif %}
+      </ul>
+    </nav>
 
-  <section class="content">
-    <header class="header">
-      {% block header %}{% endblock %}
-    </header>
+    <main>
+      <section class="content">
+        <header class="header">{% block header %}{% endblock %}</header>
 
-    {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
 
-    {% block content %}{% endblock %}
-  </section>
-</body>
+        {% block content %}{% endblock %}
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section">
+          <h4>About Us</h4>
+          <p>Learn more about our company and mission.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{{ url_for('blog.index') }}">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Contact Us</h4>
+          <p>Email: anuragdu125@gmail.com</p>
+          <p>Phone: +123-456-7890</p>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <ul class="social-links">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/anuragdubey14/"
+                target="_blank"
+                >LinkedIn</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 TechBlog. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
 </html>
