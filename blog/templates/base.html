@@ -12,34 +12,60 @@
   </head>
 
   <body>
+    <div class="page-wrapper">
     <nav class="navbar">
-      <a class="navbar-brand" href="{{ url_for('blog.index') }}">
+  <a class="navbar-brand" href="{{ url_for('blog.index') }}">
+    <img
+      src="{{ url_for('static', filename='favicon.ico') }}"
+      class="home_icon"
+    />
+    TechBlog
+  </a>
+
+  <ul class="nav-right">
+    <li class="dropdown">
+      <a href="#">
         <img
-          src="{{ url_for('static', filename='favicon.ico') }}"
+          src="{{ url_for('static', filename='profile.png') }}"
           class="home_icon"
         />
-        TechBlog
-      </a>
-      <ul>
         {% if g.user %}
-        <li><span>{{ g.user['username'] }}</span></li>
-        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+          {{ g.user['username'] }}
+        {% endif %}
+      </a>
+      <ul class="dropdown-menu">
+        {% if g.user %}
+        <li>
+          <a href="{{ url_for('auth.logout') }}">
+            <img src="{{ url_for('static', filename='logout.png') }}" class="home_icon" />
+            Log Out
+          </a>
+        </li>
         {% else %}
-        <li><a href="{{ url_for('auth.register') }}">Register</a></li>
-        <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+        <li>
+          <a href="{{ url_for('auth.register') }}">
+            <img src="{{ url_for('static', filename='register.png') }}" class="home_icon" />
+            Register
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('auth.login') }}">
+            <img src="{{ url_for('static', filename='login.png') }}" class="home_icon" />
+            Log In
+          </a>
+        </li>
         {% endif %}
       </ul>
-    </nav>
+    </li>
+  </ul>
+</nav>
 
     <main>
       <section class="content">
         <header class="header">{% block header %}{% endblock %}</header>
-
         {% for message in get_flashed_messages() %}
         <div class="flash">{{ message }}</div>
-        {% endfor %}
-
-        {% block content %}{% endblock %}
+        {% endfor %} {% block content %}{% endblock %}
       </section>
     </main>
 
@@ -79,5 +105,6 @@
         <p>© 2025 TechBlog. All rights reserved.</p>
       </div>
     </footer>
+    </div>
   </body>
 </html>
